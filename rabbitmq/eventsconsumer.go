@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/astoyanov87/subscription-service/config"
 	"github.com/astoyanov87/subscription-service/email"
 	"github.com/astoyanov87/subscription-service/redis"
 
@@ -20,7 +21,8 @@ type MatchStatusChangedEvent struct {
 }
 
 func ListenForMatchEvents() {
-	conn, err := amqp.Dial("amqp://guest:guest@10.133.66.153:5672/")
+	cfg := config.LoadConfig()
+	conn, err := amqp.Dial("amqp://guest:guest@" + cfg.RabbitMQ.Host + ":" + cfg.RabbitMQ.Port + "/")
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
 	}
@@ -77,7 +79,7 @@ func ListenForMatchEvents() {
 		}
 
 		// Get subscribers from Redis and send emails
-		subscribers, err := redis.GetSubscribers(event.MatchID)
+		subscribers, err := redis.GetSubscribers(event.MatchID, cfg)
 		fmt.Println(subscribers)
 		if err != nil {
 			log.Printf("Error retrieving subscribers: %v", err)
@@ -86,7 +88,7 @@ func ListenForMatchEvents() {
 
 		for _, emailAddr := range subscribers {
 			fmt.Println("Sending email to " + emailAddr)
-			email.SendEmail(emailAddr, event.Name, event.HomePlayerScore, event.AwayPlayerScore, event.Status)
+			email.SendEmail(emailAddr, event.Name, event.HomePlayerScore, event.AwayPlayerScore, event.Status, cfg)
 		}
 	}
 }

@@ -5,14 +5,15 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/astoyanov87/subscription-service/config"
 	"github.com/go-redis/redis/v8"
 )
 
 var ctx = context.Background()
 
-func AddSubscriber(matchID, email string) error {
+func AddSubscriber(matchID, email string, cfg *config.Config) error {
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "10.133.143.249:6379",
+		Addr: cfg.Redis.Host + ":" + cfg.Redis.Port,
 	})
 
 	err := rdb.SAdd(ctx, "subscribers:"+matchID, email).Err()
@@ -23,9 +24,9 @@ func AddSubscriber(matchID, email string) error {
 	return nil
 }
 
-func GetSubscribers(matchID string) ([]string, error) {
+func GetSubscribers(matchID string, cfg *config.Config) ([]string, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "10.133.143.249:6379",
+		Addr: cfg.Redis.Host + ":" + cfg.Redis.Port,
 		DB:   0,
 	})
 
