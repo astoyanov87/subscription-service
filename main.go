@@ -16,4 +16,10 @@ func main() {
 	http.HandleFunc("/subscribe", api.Subscribe)
 	log.Println("Subscription service running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
+	})
+
 }

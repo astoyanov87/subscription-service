@@ -10,7 +10,7 @@ import (
 
 func SendEmail(to string, matchName string, homePlayerScore int, awayPlayerScore int, status string, cfg *config.Config) {
 	m := gomail.NewMessage()
-	m.SetHeader("From", "your-email@example.com")
+	m.SetHeader("From", "snooker-livescore@maildev.com")
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", "Match Status Update - "+matchName)
 	m.SetBody("text/html", "<p>Match "+matchName+" is now <strong>"+status+" </strong></p><br/><p>Match Result :"+strconv.Itoa(homePlayerScore)+" - "+strconv.Itoa(awayPlayerScore)+"</p>")
