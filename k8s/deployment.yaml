@@ -18,14 +18,14 @@ spec:
         component: data-ingestion
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8088"
+        prometheus.io/port: "8080"
     spec:
       containers:
       - name: subscription-service
         image: astoyanov87/subscription-service:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8088
+        - containerPort: 8080
           name: health
         resources:
           limits:
@@ -44,7 +44,7 @@ spec:
         - name: RABBITMQ_PORT
           value: "5672"
         - name: SMTP_HOST
-          value: "92.168.100.84
+          value: "192.168.100.84"
         - name: SMTP_PORT
           value: "1025"
         livenessProbe:
