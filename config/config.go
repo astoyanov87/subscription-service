@@ -51,8 +51,8 @@ func LoadConfig() *Config {
 		RabbitMQ: RabbitMQConfig{
 			Host:     getEnv("RABBITMQ_HOST", "localhost"),
 			Port:     getEnv("RABBITMQ_PORT", "5672"),
-			Username: getEnv("RABBITMQ_USERNAME", "guest"),
-			Password: getEnv("RABBITMQ_PASSWORD", "guest"),
+			Username: getEnv("RABBITMQ_USERNAME", "admin"),
+			Password: getEnv("RABBITMQ_PASSWORD", "admin123"),
 		},
 		SmtpConfig: SmtpConfig{
 			Host:     getEnv("SMTP_HOST", "smtp.example.com"),

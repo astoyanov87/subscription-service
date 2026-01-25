@@ -36,15 +36,15 @@ spec:
             memory: "512Mi"
         env:
         - name: REDIS_HOST
-          value: "192.168.100.84"
+          value: "redis-master"
         - name: REDIS_PORT
           value: "6379"
         - name: RABBITMQ_HOST
-          value: "192.168.100.84"
+          value: "rabbitmq"
         - name: RABBITMQ_PORT
           value: "5672"
         - name: SMTP_HOST
-          value: "192.168.100.84"
+          value: "maildev"
         - name: SMTP_PORT
           value: "1025"
         livenessProbe:
