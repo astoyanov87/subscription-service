@@ -44,9 +44,15 @@ spec:
         - name: RABBITMQ_PORT
           value: "5672"
         - name: RABBITMQ_USERNAME
-          value: "admin"
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-credentials
+              key: username
         - name: RABBITMQ_PASSWORD
-          value: "admin123"
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-credentials
+              key: password
         - name: SMTP_HOST
           value: "maildev"
         - name: SMTP_PORT
