@@ -43,6 +43,10 @@ spec:
           value: "rabbitmq"
         - name: RABBITMQ_PORT
           value: "5672"
+        - name: RABBITMQ_USERNAME
+          value: "admin"
+        - name: RABBITMQ_PASSWORD
+          value: "admin123"
         - name: SMTP_HOST
           value: "maildev"
         - name: SMTP_PORT

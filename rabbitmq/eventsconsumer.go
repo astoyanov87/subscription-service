@@ -22,7 +22,9 @@ type MatchStatusChangedEvent struct {
 
 func ListenForMatchEvents() {
 	cfg := config.LoadConfig()
-	conn, err := amqp.Dial("amqp://guest:guest@" + cfg.RabbitMQ.Host + ":" + cfg.RabbitMQ.Port + "/")
+	// Use configured RabbitMQ credentials from environment/dev.env
+	amqpURL := fmt.Sprintf("amqp://%s:%s@%s:%s/", cfg.RabbitMQ.Username, cfg.RabbitMQ.Password, cfg.RabbitMQ.Host, cfg.RabbitMQ.Port)
+	conn, err := amqp.Dial(amqpURL)
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
 	}
